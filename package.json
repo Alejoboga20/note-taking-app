@@ -1,0 +1,16 @@
+{
+  "name": "note-taking-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Alejoboga20/note-taking-app.git",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
