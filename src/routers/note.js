@@ -1,4 +1,5 @@
 const express = require('express');
+const Note = require('../models/note');
 const router = new express.Router();
 
 //CRUD Operations
