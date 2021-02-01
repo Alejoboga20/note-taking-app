@@ -51,7 +51,11 @@ router.post('/users/logoutAll', auth, async (req, res) => {
   }
 });
 
-router.get('/users', (req, res) => {});
+router.get('/users/me', auth, async (req, res) => {
+  const { name, email } = req.user;
+  res.send({ name, email });
+});
+
 router.get('/users/:userId', (req, res) => {});
 
 router.patch('/users/:userId', (req, res) => {});
