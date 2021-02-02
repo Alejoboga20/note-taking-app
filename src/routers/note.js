@@ -18,7 +18,14 @@ router.post('/notes', auth, async (req, res) => {
   }
 });
 
-router.get('/notes', (req, res) => {});
+router.get('/notes', auth, async (req, res) => {
+  try {
+    await req.user.populate('notes').execPopulate();
+    res.send(req.user.notes);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
 router.get('/notes/:noteId', (req, res) => {});
 
 router.patch('/notes/:noteId', (req, res) => {});
