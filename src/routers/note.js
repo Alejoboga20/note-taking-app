@@ -63,6 +63,19 @@ router.patch('/notes/:noteId', auth, async (req, res) => {
   }
 });
 
-router.delete('/notes/:noteId', (req, res) => {});
+router.delete('/notes/:noteId', auth, async (req, res) => {
+  const _id = req.params.noteId;
+
+  try {
+    const note = await Note.findOneAndDelete({ _id, owner: req.user._id });
+    if (!note) {
+      return res.status(404).send();
+    }
+
+    res.send(note);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
 
 module.exports = router;
