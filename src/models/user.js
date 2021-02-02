@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const Note = require('./note');
 
 const userSchema = new mongoose.Schema(
   {
@@ -44,6 +45,12 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.virtual('tasks', {
+  ref: 'Task',
+  localField: '_id',
+  foreignField: 'owner'
+});
 
 userSchema.pre('save', async function (next) {
   const user = this;
