@@ -1,10 +1,22 @@
 const express = require('express');
 const Note = require('../models/note');
+const auth = require('../middleware/auth');
 const router = new express.Router();
 
 //CRUD Operations
+router.post('/notes', auth, async (req, res) => {
+  const note = new Note({
+    ...req.body,
+    owner: req.user._id
+  });
 
-router.post('/notes', (req, res) => {});
+  try {
+    await note.save();
+    res.status(201).send(note);
+  } catch (e) {
+    res.status(400).send();
+  }
+});
 
 router.get('/notes', (req, res) => {});
 router.get('/notes/:noteId', (req, res) => {});

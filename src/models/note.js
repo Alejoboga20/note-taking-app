@@ -28,13 +28,6 @@ const noteSchema = new mongoose.Schema(
         }
       }
     },
-    tags: [
-      {
-        tag: {
-          type: String
-        }
-      }
-    ],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
