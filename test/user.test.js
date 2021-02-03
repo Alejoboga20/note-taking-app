@@ -82,3 +82,15 @@ test('Should read user data', async () => {
 test('Should not read user data without authorization', async () => {
   await request(app).get('/users/me').send().expect(401);
 });
+
+test('Should delete account for user', async () => {
+  const response = await request(app)
+    .delete('/users/me')
+    .set('Authorization', `Bearer ${user.tokens[0].token}`)
+    .send()
+    .expect(200);
+});
+
+test('Should not delete account for user  without authorization', async () => {
+  await request(app).delete('/users/me').send().expect(401);
+});
