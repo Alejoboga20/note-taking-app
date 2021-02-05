@@ -18,6 +18,12 @@ const user = {
   ]
 };
 
+const note = {
+  title: 'Existing Test Note Title',
+  body: 'Existing Test Note Body',
+  owner: userId
+};
+
 const newNote = {
   title: 'Test Title',
   body: 'Test Body'
@@ -27,10 +33,12 @@ beforeEach(async () => {
   await User.deleteMany();
   await Note.deleteMany();
   await new User(user).save();
+  await new Note(note).save();
 });
 
 afterEach(async () => {
   await User.deleteMany();
+  await Note.deleteMany();
 });
 
 test('Should create a note', async () => {
@@ -39,6 +47,12 @@ test('Should create a note', async () => {
     .set('Authorization', `Bearer ${user.tokens[0].token}`)
     .send(newNote)
     .expect(201);
+});
 
-  console.log(response.body);
+test('Should get Notes by user', async () => {
+  const response = await request(app)
+    .get('/notes')
+    .set('Authorization', `Bearer ${user.tokens[0].token}`)
+    .send()
+    .expect(200);
 });
